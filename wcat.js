@@ -22,22 +22,34 @@ for(let i=0 ; i<filesArr.length ; i++){
     }
 }
 
+
 let content = "";
 for(let i=0 ; i<filesArr.length ; i++){
     content += fs.readFileSync(filesArr[i]) + "\r\n";
 }
 let contentArr = content.split("\r\n");
 // console.log(optionArr);
-
+//edge case handeled    
 let BandNtogether= optionArr.includes("-n") && optionArr.includes("-b")
 
  if(BandNtogether==true){
     let indexN=optionArr.indexOf("-n");
     let indexB=optionArr.indexOf("-b");
     if(indexN>indexB){
-        optionArr.splice(indexN,1);
+       for(let i=indexN ; i<optionArr.length ; i++){
+           if(optionArr[i]=="-n" || optionArr[i]=="-b"){
+               optionArr.splice(i,1);
+               i--;
+           }
+       }
+        
     }else{
-        optionArr.splice(indexB,1);
+        for(let i=indexB; i<optionArr.length ; i++){
+            if(optionArr[i]=="-n" || optionArr[i]=="-b"){
+                optionArr.splice(i,1);
+                i--;
+            }
+        }
     }
 
  }
